@@ -4,6 +4,31 @@
 const userURI = "https://jsonplaceholder.typicode.com/users";
 const myUserlistElement = document.getElementById("userList");
 
+let myFetch = fetch(userURI) 
+    .then (
+        (response) => {
+            // console.log(`myResponse:`, response)
+            return response.json();
+        }
+    )
+    .then((data) => {
+        console.log(`myData:`, data);
+        buildUsers(data);
+    })
+    .catch((error) => {
+        console.log(error);
+    })
+
+
+function buildUsers(myUserData){
+    myUserData.map((myUser)=>{
+    let myUserHTML=`<h2>${myUser.name}</h2>
+    <p>Adresse: ${myUser.address.street}  ${myUser.address.suite}</br>
+    post nummer: ${myUser.address.zipcode}</br>
+    by: ${myUser.address.city}</p>`;
+    myUserlistElement.innerHTML+=myUserHTML;
+    });
+}
 
 /* Opgave 2*/
 
@@ -21,4 +46,4 @@ const myListElement = document.getElementById("userSelect");
 const myPostElement = document.getElementById("userPosts");
 
 //entry point
-getUsers("https://jsonplaceholder.typicode.com/users");
+// getUsers("https://jsonplaceholder.typicode.com/users");
